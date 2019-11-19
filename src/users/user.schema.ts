@@ -1,7 +1,7 @@
 import * as mongoose from 'mongoose';
 
-export const MockSchema = new mongoose.Schema({
+export const UserSchema = new mongoose.Schema({
     name: String,
     age: Number,
-    breed: String
+    role: String
 });
