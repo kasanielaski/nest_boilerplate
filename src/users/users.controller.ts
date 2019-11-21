@@ -5,7 +5,7 @@ import {
     Body,
     Param,
     Patch,
-    Delete,
+    Delete
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 
@@ -41,7 +41,7 @@ export class UsersController {
         @Body('age') age: number,
         @Body('role') role: string
     ): Promise<User> {
-        return await this.usersService.updateUser(id, name, age, role);
+        return await this.usersService.updateUser({ id, name, age, role });
     }
 
     @Delete(':id')
