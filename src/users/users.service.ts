@@ -8,8 +8,13 @@ import { User } from './user.interface';
 export class UsersService {
     constructor(@InjectModel('User') private readonly userModel: Model<User>) {}
 
-    async createUser(name: string, age: number, role: string): Promise<User> {
-        const user = new this.userModel({ name, age, role });
+    async createUser(
+        name: string,
+        age: number,
+        role: string,
+        password: string
+    ): Promise<User> {
+        const user = new this.userModel({ name, age, role, password });
         return await user.save();
     }
 
@@ -27,11 +32,22 @@ export class UsersService {
         return user;
     }
 
+    async findUser(name: string): Promise<User> {
+        const user = await this.userModel.findOne({ name });
+
+        if (!user) {
+            throw new NotFoundException('user not found');
+        }
+
+        return user;
+    }
+
     async updateUser(params: {
         id: string;
         name?: string;
         age?: number;
         role?: string;
+        password?: string;
     }): Promise<User> {
         const { id, ...field } = params;
         const user = await this.userModel.findById(id).exec();
