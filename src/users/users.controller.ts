@@ -5,13 +5,16 @@ import {
     Body,
     Param,
     Patch,
-    Delete
+    Delete,
+    UseInterceptors,
+    CacheInterceptor
 } from '@nestjs/common';
-import { UsersService } from './users.service';
 
+import { UsersService } from './users.service';
 import { User } from './user.interface';
 
 @Controller('users')
+@UseInterceptors(CacheInterceptor)
 export class UsersController {
     constructor(private readonly usersService: UsersService) {}
 
