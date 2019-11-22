@@ -9,12 +9,12 @@ export class UsersService {
     constructor(@InjectModel('User') private readonly userModel: Model<User>) {}
 
     async createUser(
-        name: string,
+        username: string,
         age: number,
         role: string,
         password: string
     ): Promise<User> {
-        const user = new this.userModel({ name, age, role, password });
+        const user = new this.userModel({ username, age, role, password });
         return await user.save();
     }
 
@@ -32,8 +32,8 @@ export class UsersService {
         return user;
     }
 
-    async findUser(name: string): Promise<User> {
-        const user = await this.userModel.findOne({ name });
+    async findUser(username: string): Promise<User> {
+        const user = await this.userModel.findOne({ username });
 
         if (!user) {
             throw new NotFoundException('user not found');
@@ -44,7 +44,7 @@ export class UsersService {
 
     async updateUser(params: {
         id: string;
-        name?: string;
+        username?: string;
         age?: number;
         role?: string;
         password?: string;

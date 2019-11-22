@@ -17,13 +17,12 @@ export class UsersController {
 
     @Post()
     async createUser(
-        @Body('name') name: string,
+        @Body('username') username: string,
         @Body('age') age: number,
         @Body('role') role: string,
         @Body('password') password: string
     ): Promise<User> {
-        console.log(password);
-        return await this.usersService.createUser(name, age, role, password);
+        return await this.usersService.createUser(username, age, role, password);
     }
 
     @Get()
@@ -36,20 +35,20 @@ export class UsersController {
         return await this.usersService.getUser(id);
     }
 
-    @Get(':name')
-    async findUser(@Param('name') name: string): Promise<User> {
-        return await this.usersService.findUser(name);
+    @Get(':username')
+    async findUser(@Param('username') username: string): Promise<User> {
+        return await this.usersService.findUser(username);
     }
 
     @Patch(':id')
     async updateUser(
         @Param('id') id: string,
-        @Body('name') name: string,
+        @Body('username') username: string,
         @Body('age') age: number,
         @Body('role') role: string,
         @Body('password') password: string
     ): Promise<User> {
-        return await this.usersService.updateUser({ id, name, age, role, password });
+        return await this.usersService.updateUser({ id, username, age, role, password });
     }
 
     @Delete(':id')
