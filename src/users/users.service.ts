@@ -1,6 +1,7 @@
 import { Model } from 'mongoose';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
+import bcrypt from 'bcrypt';
 
 import { User } from './user.interface';
 
@@ -14,7 +15,8 @@ export class UsersService {
         role: string,
         password: string
     ): Promise<User> {
-        const user = new this.userModel({ username, age, role, password });
+        const crypted = await bcrypt.hash(password, 10);
+        const user = new this.userModel({ username, age, role, password: crypted });
         return await user.save();
     }
 
@@ -58,7 +60,11 @@ export class UsersService {
 
         for (let prop in field) {
             if (field[prop]) {
-                await user.updateOne({ [prop]: field[prop] });
+                prop === 'password'
+                    ? await user.updateOne({
+                          [prop]: await bcrypt.hash(field[prop], 10)
+                      })
+                    : await user.updateOne({ [prop]: field[prop] });
             }
         }
 
