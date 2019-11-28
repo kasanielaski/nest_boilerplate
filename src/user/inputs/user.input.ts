@@ -1,11 +1,15 @@
 import { Field, Int, InputType } from 'type-graphql';
 
 @InputType()
-export class MockInput {
+export class UserInput {
     @Field()
     readonly name: string;
+    @Field()
+    readonly email: string;
+    @Field()
+    readonly password: string;
     @Field(() => Int)
     readonly age: number;
     @Field()
-    readonly breed: string;
+    readonly role: string;
 }

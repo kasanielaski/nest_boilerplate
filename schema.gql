@@ -3,23 +3,29 @@
 # !!!   DO NOT MODIFY THIS FILE BY YOURSELF   !!!
 # -----------------------------------------------
 
-type CreateMockDto {
+type CreateUserDto {
   name: String!
+  email: String!
+  password: String!
   age: Int!
-  breed: String!
-}
-
-input MockInput {
-  name: String!
-  age: Int!
-  breed: String!
+  role: String!
 }
 
 type Mutation {
-  createMock(mock: MockInput!): CreateMockDto!
+  createUser(user: UserInput!): CreateUserDto!
+  updateUser(user: UserInput!): CreateUserDto!
+  deleteUser(name: String!): CreateUserDto!
 }
 
 type Query {
-  hello(text: String!): String!
-  findAll: [CreateMockDto!]!
+  findUsers: [CreateUserDto!]!
+  findUser(name: String!): CreateUserDto!
+}
+
+input UserInput {
+  name: String!
+  email: String!
+  password: String!
+  age: Int!
+  role: String!
 }

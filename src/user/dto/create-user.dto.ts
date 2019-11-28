@@ -1,11 +1,15 @@
 import { ObjectType, Field, Int } from 'type-graphql';
 
 @ObjectType()
-export class CreateMockDto {
+export class CreateUserDto {
     @Field()
     readonly name: string;
+    @Field()
+    readonly email: string;
+    @Field()
+    readonly password: string;
     @Field(() => Int)
     readonly age: number;
     @Field()
-    readonly breed: string;
+    readonly role: string;
 }
