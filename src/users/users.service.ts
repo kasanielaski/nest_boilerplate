@@ -16,7 +16,12 @@ export class UsersService {
         password: string
     ): Promise<User> {
         const crypted = await bcrypt.hash(password, 10);
-        const user = new this.userModel({ username, age, role, password: crypted });
+        const user = new this.userModel({
+            username,
+            age,
+            role,
+            password: crypted
+        });
         return await user.save();
     }
 
@@ -58,7 +63,7 @@ export class UsersService {
             throw new NotFoundException('user not found');
         }
 
-        for (let prop in field) {
+        for (const prop in field) {
             if (field[prop]) {
                 prop === 'password'
                     ? await user.updateOne({

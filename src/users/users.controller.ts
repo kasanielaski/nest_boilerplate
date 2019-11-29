@@ -25,7 +25,12 @@ export class UsersController {
         @Body('role') role: string,
         @Body('password') password: string
     ): Promise<User> {
-        return await this.usersService.createUser(username, age, role, password);
+        return await this.usersService.createUser(
+            username,
+            age,
+            role,
+            password
+        );
     }
 
     @Get()
@@ -51,7 +56,13 @@ export class UsersController {
         @Body('role') role: string,
         @Body('password') password: string
     ): Promise<User> {
-        return await this.usersService.updateUser({ id, username, age, role, password });
+        return await this.usersService.updateUser({
+            id,
+            username,
+            age,
+            role,
+            password
+        });
     }
 
     @Delete(':id')
